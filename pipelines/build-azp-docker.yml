@@ -13,7 +13,7 @@ steps:
     inputs:
       repository: $(imageName)
       command: build
-      Dockerfile: Dockerfile
+      Dockerfile: ./docker/Dockerfile
       tags: |
         azp-agent:linux:$(Build.BuildId)
         latest
