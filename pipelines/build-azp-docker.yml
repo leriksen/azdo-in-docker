@@ -15,5 +15,6 @@ steps:
       command: build
       Dockerfile: ./docker/Dockerfile
       tags: |
-        azp-agent:linux:$(Build.BuildId)
+        azp-agent:linux
+        $(Build.BuildId)
         latest
