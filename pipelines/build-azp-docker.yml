@@ -1,0 +1,19 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  imageName: pipelines-azp-docker
+
+steps:
+  - task: Docker@2
+    displayName: Build an image
+    inputs:
+      repository: $(imageName)
+      command: build
+      Dockerfile: Dockerfile
+      tags: |
+        azp-agent:linux:$(Build.BuildId)
+        latest
