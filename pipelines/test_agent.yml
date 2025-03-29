@@ -1,0 +1,7 @@
+pool: docker-devops
+
+steps:
+  - script: |
+	  ls -al
+	  uname -a
+	displayName: Test Shell
