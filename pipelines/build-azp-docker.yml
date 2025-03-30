@@ -9,12 +9,17 @@ variables:
 
 steps:
   - task: Docker@2
-    displayName: Build an image
+    displayName: login to docker
     inputs:
-      repository: $(imageName)
-      command: build
-      Dockerfile: ./docker/Dockerfile
-      tags: |
-        linux
-        $(Build.BuildId)
-        latest
+      command: login
+      containerRegistry: docker.io
+#  - task: Docker@2
+#    displayName: Build an image
+#    inputs:
+#      repository: $(imageName)
+#      command: build
+#      Dockerfile: ./docker/Dockerfile
+#      tags: |
+#        linux
+#        $(Build.BuildId)
+#        latest
