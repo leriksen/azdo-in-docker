@@ -25,5 +25,6 @@ resource "azurerm_linux_virtual_machine" "vm01" {
     version   = "latest"
   }
 
-  priority = "Spot"
+  priority        = "Spot"
+  eviction_policy = "Deallocate"
 }
