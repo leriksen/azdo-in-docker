@@ -82,6 +82,15 @@ trap "cleanup; exit 0" EXIT
 trap "cleanup; exit 130" INT
 trap "cleanup; exit 143" TERM
 
+print_header "AZP_URL=${AZP_URL}"
+print_header "AZP_POOL=${AZP_POOL}"
+print_header "AZP_AGENT_NAME=${AZP_AGENT_NAME}"
+
+print_header "AZP_TOKEN=${AZP_TOKEN}"
+print_header "AZP_TOKEN_FILE=${AZP_TOKEN_FILE}"
+print_header "AZP_TOKEN_FILE content = $(cat .azp_token)"
+print_header "AZP_TOKEN_FILE detail = $(ls -al
+
 print_header "3. Configuring Azure Pipelines agent..."
 
 # Despite it saying "PAT", it can be the token through the service principal
