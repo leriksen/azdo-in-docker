@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 export AZP_URL="https://dev.azure.com/leiferiksenau"
 export AZP_TOKEN="$(cat .azp_token)"
