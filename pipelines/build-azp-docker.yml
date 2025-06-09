@@ -5,7 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  imageName: leriksen/pipelines-azp-docker
+  imageName: leriksen/pipelines-azp-docker-linux
 
 steps:
   - task: Docker@2
@@ -20,6 +20,5 @@ steps:
       command: buildAndPush
       Dockerfile: ./docker/Dockerfile
       tags: |
-        linux
         $(Build.BuildId)
         latest
