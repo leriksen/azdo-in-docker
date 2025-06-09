@@ -34,12 +34,15 @@ fi
 cleanup() {
   trap "" EXIT
 
+  print_header "in cleanup"
+
+  print_header "config == $(cat ./config.sh)"
   if [ -e ./config.sh ]; then
     print_header "Cleanup. Removing Azure Pipelines agent..."
-
     # If the agent has some running jobs, the configuration removal process will fail.
     # So, give it some time to finish the job.
     while true; do
+      print_header "attempting to remove from azure devops"
       ./config.sh remove --unattended --auth "PAT" --token $(cat "${AZP_TOKEN_FILE}") && break
 
       echo "Retrying in 30 seconds..."
@@ -72,24 +75,24 @@ if [ -z "${AZP_AGENT_PACKAGE_LATEST_URL}" -o "${AZP_AGENT_PACKAGE_LATEST_URL}" =
   exit 1
 fi
 
+print_header "AZP_URL=${AZP_URL}"
+print_header "AZP_POOL=${AZP_POOL}"
+print_header "AZP_AGENT_NAME=${AZP_AGENT_NAME}"
+
+print_header "AZP_TOKEN =              ${AZP_TOKEN}"
+print_header "AZP_TOKEN_FILE =         ${AZP_TOKEN_FILE}"
+print_header "AZP_TOKEN_FILE content = $(cat /azp/.token)"
+print_header "AZP_TOKEN_FILE detail =  $(ls -al /azp/.token)"
+
 print_header "2. Downloading and extracting Azure Pipelines agent..."
 
-curl -LsS "${AZP_AGENT_PACKAGE_LATEST_URL}" | tar -xz & wait $!
+curl --progress-bar -LsS "${AZP_AGENT_PACKAGE_LATEST_URL}" | tar -xz & wait $!
 
 source ./env.sh
 
 trap "cleanup; exit 0" EXIT
 trap "cleanup; exit 130" INT
 trap "cleanup; exit 143" TERM
-
-print_header "AZP_URL=${AZP_URL}"
-print_header "AZP_POOL=${AZP_POOL}"
-print_header "AZP_AGENT_NAME=${AZP_AGENT_NAME}"
-
-print_header "AZP_TOKEN=${AZP_TOKEN}"
-print_header "AZP_TOKEN_FILE=${AZP_TOKEN_FILE}"
-print_header "AZP_TOKEN_FILE content = $(cat .azp_token)"
-print_header "AZP_TOKEN_FILE detail = $(ls -al
 
 print_header "3. Configuring Azure Pipelines agent..."
 
