@@ -8,17 +8,26 @@ variables:
   imageName: leriksen/pipelines-azp-docker-linux
 
 steps:
-  - task: Docker@2
-    displayName: login to docker
+  - task: AzureCLI@2
+    displayName: build image on ACR
     inputs:
-      command: login
-      containerRegistry: docker.io
-  - task: Docker@2
-    displayName: Build an image
-    inputs:
-      repository: $(imageName)
-      command: buildAndPush
-      Dockerfile: ./docker/Dockerfile
-      tags: |
-        $(Build.BuildId)
-        latest
+      azureSubscription: sc_azdo
+      scriptType: bash
+      scriptLocation: inline
+      inlineScript: |-
+        az acr build --registry "azdocr" --image "$(imageName)" --file "./docker/Dockerfile" "."
+
+#  - task: Docker@2
+#    displayName: login to docker
+#    inputs:
+#      command: login
+#      containerRegistry: docker.io
+#  - task: Docker@2
+#    displayName: Build an image
+#    inputs:
+#      repository: $(imageName)
+#      command: buildAndPush
+#      Dockerfile: ./docker/Dockerfile
+#      tags: |
+#        $(Build.BuildId)
+#        latest
