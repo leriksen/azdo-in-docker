@@ -15,7 +15,9 @@ steps:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |-
-        az acr build --registry "azdocr.azurecr.io" --image "$(imageName)" --file "./docker/Dockerfile" "."
+        cd docker
+        az acr list -g azdo
+        az acr build --registry "azdocr" --image "$(imageName)" --file "./Dockerfile" "."
 
 #  - task: Docker@2
 #    displayName: login to docker

@@ -4,7 +4,7 @@ module "globals" {
 
 module "subscription" {
   source       = "./modules/context/subscription"
-  subscription = "prod"
+  subscription = "nonprod"
 }
 
 module "environment" {
