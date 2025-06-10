@@ -8,3 +8,5 @@ provider "azurerm" {
 }
 
 provider "azuredevops" {}
+
+provider "azuread" {}
