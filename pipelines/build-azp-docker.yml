@@ -13,7 +13,7 @@ steps:
     inputs:
       azureSubscription: sc_azdo
       scriptType: bash
-      scriptLocation: inline
+      scriptLocation: inlineScript
       inlineScript: |-
         az acr build --registry "azdocr" --image "$(imageName)" --file "./docker/Dockerfile" "."
 
