@@ -18,18 +18,3 @@ steps:
         cd docker
         az acr list -g azdo
         az acr build --registry "azdocr" --image "$(imageName)" --file "./Dockerfile" "."
-
-#  - task: Docker@2
-#    displayName: login to docker
-#    inputs:
-#      command: login
-#      containerRegistry: docker.io
-#  - task: Docker@2
-#    displayName: Build an image
-#    inputs:
-#      repository: $(imageName)
-#      command: buildAndPush
-#      Dockerfile: ./docker/Dockerfile
-#      tags: |
-#        $(Build.BuildId)
-#        latest

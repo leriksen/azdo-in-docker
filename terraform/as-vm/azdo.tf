@@ -14,6 +14,12 @@ resource "azurerm_user_assigned_identity" "azdo" {
   resource_group_name = azurerm_resource_group.rg.name
 }
 
+resource azurerm_role_assignment "umi_contributor" {
+  principal_id = azurerm_user_assigned_identity.azdo.principal_id
+  scope = azurerm_resource_group.rg.id
+  role_definition_name = "Contributor"
+}
+
 resource "azuredevops_serviceendpoint_azurerm" "sc_azurerm" {
   project_id                             = data.azuredevops_project.azdo.id
   service_endpoint_name                  = "sc_azdo"
